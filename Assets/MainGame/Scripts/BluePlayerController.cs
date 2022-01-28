@@ -38,4 +38,10 @@ public class BluePlayerController : PlayerControllerBase
         GetComponent<Rigidbody>().AddForce(Vector3.right * 100);
         Debug.Log("Blue Push!");
     }
+    public override void OpenDoor()
+    {
+        base.OpenDoor();
+        Debug.Log("Blue Opens Door!");
+        OnOpenDoor.Raise();
+    }
 }

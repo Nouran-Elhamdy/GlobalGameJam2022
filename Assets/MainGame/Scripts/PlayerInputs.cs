@@ -7,7 +7,7 @@ public class PlayerInputs : MonoBehaviour
     int currentJump;
     bool canJump = true;
     int maxJumps = 1;
-
+    [SerializeField] PlayerCollision redPlayerCollision;
     void Update()
     {
         HandlePlayerInputs();
@@ -28,36 +28,41 @@ public class PlayerInputs : MonoBehaviour
             currentJump++;
         }
 
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            RedPlayerController.Instance.MoveLeft();
+            if (PlayerState.Instance.playerState == "RedPlayer")
+                RedPlayerController.Instance.MoveLeft();
         }
 
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            BluePlayerController.Instance.MoveRight();
+            if (PlayerState.Instance.playerState == "BluePlayer")
+                BluePlayerController.Instance.MoveRight();
         }
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            RedPlayerController.Instance.MoveUp();
+            if (PlayerState.Instance.playerState == "RedPlayer")
+                RedPlayerController.Instance.MoveUp();
         }
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        if (redPlayerCollision.OnPortal && (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)))
         {
-            RedPlayerController.Instance.MoveDown();
+            Debug.Log("Portal");
+            if (PlayerState.Instance.playerState == "RedPlayer")
+                RedPlayerController.Instance.Teleport();
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
             PlayerState.Instance.SwitchPlayer();
         }
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    PlayerControllerBase.SwitchPlayer();
-        //}
-        //if (Input.GetKeyDown(KeyCode.O))
-        //{
-        //    PlayerControllerBase.Instance.OpenDoor();
-        //}
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            if (PlayerState.Instance.playerState == "BluePlayer")
+                BluePlayerController.Instance.OpenDoor();
+
+            if (PlayerState.Instance.playerState == "RedPlayer")
+                RedPlayerController.Instance.OpenDoor();
+        }
         //if (Input.GetKeyDown(KeyCode.Escape))
         //{
         //    //Reset or Exit Game

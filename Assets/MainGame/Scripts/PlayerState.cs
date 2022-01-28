@@ -8,12 +8,10 @@ public class PlayerState : MonoBehaviour
     bool isBlueActive;
     bool isRedActive = true;
     public static PlayerState Instance;
-
     private void Start()
     {
         Instance = this;
     }
-
     public void SwitchPlayer()
     {
         isBlueActive = !isRedActive;
@@ -29,9 +27,5 @@ public class PlayerState : MonoBehaviour
         }
 
         Debug.Log("Bool = " + isBlueActive);
-    }
-    private void Update()
-    {
-        Debug.Log("playerState = " + playerState);
     }
 }
