@@ -60,11 +60,8 @@ public class PlayerControllerBase : MonoBehaviour
     {
         
     }
-    public void DetectCurrentPlayer()
+    public virtual void DetectPlayer()
     {
 
-    }
-    private void Update()
-    {
     }
 }

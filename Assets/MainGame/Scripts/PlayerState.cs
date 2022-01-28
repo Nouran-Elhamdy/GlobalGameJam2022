@@ -25,7 +25,5 @@ public class PlayerState : MonoBehaviour
             playerState = "RedPlayer";
             isRedActive = false;
         }
-
-        Debug.Log("Bool = " + isBlueActive);
     }
 }

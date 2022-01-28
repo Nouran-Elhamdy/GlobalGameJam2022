@@ -12,14 +12,11 @@ public class BluePlayerController : PlayerControllerBase
     }
     public override void MoveRight()
     {
-        base.MoveRight();
-        Debug.Log("Move Blue Right!");
         Vector3 movePos = new Vector3(stepForward * Time.deltaTime * speed, 0, 0);
         GetComponent<Rigidbody>().position += movePos;
     }
     public override void Jump()
     {
-        Debug.Log("Blue Jump!");
         GroundPlayer();
         GetComponent<Rigidbody>().AddForce(Vector3.up * 300);
     }
@@ -27,21 +24,16 @@ public class BluePlayerController : PlayerControllerBase
     {
         if (GetComponent<Rigidbody>().position.y > jumpHeight)
         {
-            Debug.Log("Ground Blue Player");
             Vector3 movePos = new Vector3(0, stepForward * Time.deltaTime * speed, 0);
             GetComponent<Rigidbody>().position -= movePos;
         }
     }
     public override void Push()
     {
-        base.Push();
         GetComponent<Rigidbody>().AddForce(Vector3.right * 100);
-        Debug.Log("Blue Push!");
     }
     public override void OpenDoor()
     {
-        base.OpenDoor();
-        Debug.Log("Blue Opens Door!");
         OnOpenDoor.Raise();
     }
 }

@@ -8,6 +8,7 @@ public class PlayerInputs : MonoBehaviour
     bool canJump = true;
     int maxJumps = 1;
     [SerializeField] PlayerCollision redPlayerCollision;
+    [SerializeField] SO.Events.EventSO OnOpenBothDoors;
     void Update()
     {
         HandlePlayerInputs();
@@ -47,7 +48,6 @@ public class PlayerInputs : MonoBehaviour
         }
         if (redPlayerCollision.OnPortal && (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)))
         {
-            Debug.Log("Portal");
             if (PlayerState.Instance.playerState == "RedPlayer")
                 RedPlayerController.Instance.Teleport();
         }
@@ -57,11 +57,11 @@ public class PlayerInputs : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            if (PlayerState.Instance.playerState == "BluePlayer")
-                BluePlayerController.Instance.OpenDoor();
-
-            if (PlayerState.Instance.playerState == "RedPlayer")
-                RedPlayerController.Instance.OpenDoor();
+            if(GameManager.Instance.DetectDoorIfOpenedAtSameTime())
+            {
+                OnOpenBothDoors.Raise();
+                return;
+            }
         }
         //if (Input.GetKeyDown(KeyCode.Escape))
         //{

@@ -7,8 +7,9 @@ public class RedPlayerController : PlayerControllerBase
     public static new RedPlayerController Instance;
     [SerializeField] GameObject[] objs;
     [SerializeField] GameObject portalPos;
+    [SerializeField] GameObject detectionPoint;
     public float fallingThreshold = -10f;
-
+    RaycastHit hit;
     public bool isFalling { get; private set; }
 
     private void Start()
@@ -90,6 +91,24 @@ public class RedPlayerController : PlayerControllerBase
         {
             Die();
         }
+        DetectPlayer();
     }
 
+    public override void DetectPlayer()
+    {
+        if (Physics.Raycast(detectionPoint.transform.position, detectionPoint.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        {
+            Debug.DrawRay(detectionPoint.transform.position, detectionPoint.transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            if(hit.collider.CompareTag("BluePlayer"))
+            {
+                GetComponent<MeshRenderer>().material.color = Color.white;
+                hit.collider.GetComponent<MeshRenderer>().material.color = Color.white;
+                Invoke("Die",2);
+            }
+        }
+        else
+        {
+            Debug.DrawRay(detectionPoint.transform.position, detectionPoint.transform.TransformDirection(Vector3.forward) * 1000, Color.white);
+        }
+    }
 }
