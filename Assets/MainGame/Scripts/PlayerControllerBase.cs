@@ -5,85 +5,74 @@ using UnityEngine;
 public class PlayerControllerBase : MonoBehaviour
 {
     public static PlayerControllerBase Instance;
-    [SerializeField] float stepForward;
-    [SerializeField] float stepBackward;
-    [SerializeField] float jumpHeight;
-    [SerializeField] float speed;
-    [SerializeField] Vector3 playerPosition;
+    [SerializeField] protected float stepForward;
+    [SerializeField] protected float stepBackward;
+    [SerializeField] protected float jumpHeight;
+    [SerializeField] protected float speed;
+    [SerializeField] protected Vector3 playerPosition;
+    [SerializeField] protected SO.Events.EventSO OnOpenDoor;
+
     private void Start()
     {
         Instance = this;
         playerPosition = GetComponent<Rigidbody>().position;
     }
-    public void MoveRight()
+    public virtual void MoveRight()
     {
         Debug.Log("Move Right!");
-        Vector3 movePos = new Vector3(stepForward * Time.deltaTime * speed ,0,0);
-        GetComponent<Rigidbody>().position += movePos;
     }
-    public void MoveLeft()
+    public virtual void MoveLeft()
     {
         Debug.Log("Move Left!");
-        Vector3 movePos = new Vector3(stepForward * Time.deltaTime * speed, 0, 0);
-        GetComponent<Rigidbody>().position += movePos;
     }
-    public void MoveUp()
+    public virtual void MoveUp()
     {
         Debug.Log("Move Up!");
     }
-    public void MoveDown()
+    public virtual void MoveDown()
     {
         Debug.Log("Move Down!");
     }
-    public void Jump()
+    public virtual void Jump()
     {
-        Debug.Log("Jump!");
-        GroundPlayer();
-        GetComponent<Rigidbody>().AddForce(Vector3.up * 300);
     }
-    public void Push()
+    public virtual void Push()
     {
         Debug.Log("Push!");
-        GetComponent<Rigidbody>().AddForce(Vector3.right * 100);
     }
-    //public static void Teleport()
-    //{
-    //    Debug.Log("Teleport!");
-    //}
-    //public static void OpenDoor()
-    //{
-    //    Debug.Log("Open Door!");
-    //}
-    //public static void Attack()
-    //{
-    //    Debug.Log("Attack!");
-    //}
-
-    //public static void Die()
-    //{
-    //    Debug.Log("Die!");
-    //}
-
-    //public static void SwitchPlayer()
-    //{
-    //    Debug.Log("Switch Player!");
-    //}
-    //public static void SwitchPosition()
-    //{
-    //    Debug.Log("Switch Positions!");
-    //}
-    public void GroundPlayer()
+    public virtual void Teleport()
     {
-        if (GetComponent<Rigidbody>().position.y > jumpHeight)
-        {
-            Debug.Log("Ground Player");
-            Vector3 movePos = new Vector3(0, stepForward * Time.deltaTime * speed, 0);
-            GetComponent<Rigidbody>().position -= movePos;
-        }
+        Debug.Log("Teleport!");
+    }
+    public virtual void OpenDoor()
+    {
+        Debug.Log("Open Door!");
+        OnOpenDoor.Raise();
+    }
+    public virtual void Attack()
+    {
+        Debug.Log("Attack!");
     }
 
+    public virtual void Die()
+    {
+        Debug.Log("Die!");
+    }
+
+    
+    public void SwitchPosition()
+    {
+        Debug.Log("Switch Positions!");
+    }
+    public virtual void GroundPlayer()
+    {
+        
+    }
+    public void DetectCurrentPlayer()
+    {
+
+    }
     private void Update()
     {
-       // GroundPlayer();
     }
 }
