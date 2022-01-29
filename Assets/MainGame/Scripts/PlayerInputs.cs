@@ -9,6 +9,8 @@ public class PlayerInputs : MonoBehaviour
     int maxJumps = 1;
     [SerializeField] PlayerCollision redPlayerCollision;
     [SerializeField] SO.Events.EventSO OnOpenBothDoors;
+    [SerializeField] GameObject winPanel;
+    [SerializeField] GameObject pausePanel;
     void Update()
     {
         HandlePlayerInputs();
@@ -59,14 +61,14 @@ public class PlayerInputs : MonoBehaviour
         {
             if(GameManager.Instance.DetectDoorIfOpenedAtSameTime())
             {
-                OnOpenBothDoors.Raise();
+                winPanel.SetActive(true);
                 return;
             }
         }
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    //Reset or Exit Game
-        //}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pausePanel.SetActive(true);
+        }
         if (currentJump == maxJumps)
         {
             StartCoroutine(CoolDown());

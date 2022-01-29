@@ -12,6 +12,7 @@ TagManager:
   - Ground
   - Wall
   - Portal
+  - RedDoor
   layers:
   - Default
   - TransparentFX
