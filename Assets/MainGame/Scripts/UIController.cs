@@ -62,7 +62,7 @@ public class UIController : MonoBehaviour
         IntroducingParentPanel.SetActive(true);
         IntroducingText.SetActive(true);
 
-        yield return new WaitForSeconds(8.5f);
+        yield return new WaitForSeconds(20.5f);
         IntroducingParentPanel.SetActive(false);
         buttons.SetActive(true);
     }

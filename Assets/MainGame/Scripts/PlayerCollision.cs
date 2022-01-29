@@ -22,13 +22,13 @@ public class PlayerCollision : MonoBehaviour
 
         if (PlayerState.Instance.playerState == "BluePlayer" && collision.gameObject.CompareTag("Door") && !isOpenningDoor)
         {
-            lamp.color = Color.yellow;
+            lamp.color = Color.green;
             isOpenningDoor = true;
             ShowHint(hintOpenB);
         }
         if (PlayerState.Instance.playerState == "RedPlayer" && collision.gameObject.CompareTag("RedDoor") && !isOpenningDoor)
         {
-            lamp.color = Color.yellow;
+            lamp.color = Color.green;
             isOpenningDoor = true;
             ShowHint(hintOpenR);
         }
@@ -58,7 +58,7 @@ public class PlayerCollision : MonoBehaviour
             StartCoroutine(Delay());
             IEnumerator Delay()
             {
-                yield return new WaitForSeconds(2.0f);
+                yield return new WaitForSeconds(4.0f);
                 Destroy(obj);
             }
         }

@@ -31,6 +31,10 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteAll();
+    }
     public bool DetectDoorIfOpenedAtSameTime()
     {
         if (players[0].GetComponent<PlayerCollision>().isOpenningDoor &&
@@ -61,11 +65,11 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("BlueDialogue", "Set");
         yield return new WaitForSeconds(1.0f);
         blueDialoguePanel.SetActive(true);
-        yield return new WaitForSeconds(6.5f);
+        yield return new WaitForSeconds(8.5f);
         blueDialoguePanel.SetActive(false);
         yield return new WaitForSeconds(1.0f);
         blueHintForSwitch.SetActive(true);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(4.0f);
         blueHintForSwitch.SetActive(false);
     }
 
@@ -76,7 +80,7 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1.0f);
             RedDialoguePanel.SetActive(true);
-            yield return new WaitForSeconds(6.5f);
+            yield return new WaitForSeconds(8.5f);
             RedDialoguePanel.SetActive(false);
         }
     }
